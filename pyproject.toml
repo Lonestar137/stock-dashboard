@@ -1,0 +1,28 @@
+[project]
+name = "stock-dashboard"
+version = "0.0.1"
+description = "Small application used to query stock API information and upload to prometheus."
+
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "build",
+  "requests",
+  "prometheus_client",
+  "schedule"
+]
+
+[project.urls]
+repository = "https://github.com/Lonestar137/stock-dashboard.git"
+
+[project.optional-dependencies]
+# dev = [""]
+test = ["pytest"]
+
+[build-system]
+# Defaults
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project.scripts]
+stockdash = "stockdash.main:main"
