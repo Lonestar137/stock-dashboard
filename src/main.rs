@@ -1,8 +1,9 @@
 mod components;
 mod pages;
 use crate::components::stock_card::StockCard;
-use crate::pages::dashboard::{stock_switch, StockRoute};
+use crate::pages::dashboard::DashboardComponent;
 
+use pages::dashboard::{DashboardProps, NewsArticle, Stock};
 use yew::prelude::*;
 use yew_router::prelude::*;
 
@@ -10,8 +11,8 @@ use yew_router::prelude::*;
 enum Route {
     #[at("/")]
     Home,
-    #[at("/stock/:id")]
-    Stock { id: String },
+    // #[at("/stock/:id")]
+    // Stock { id: String },
     #[at("/about")]
     About,
     #[not_found]
@@ -27,8 +28,9 @@ fn home() -> Html {
     html! {
         <div>
             <h1>{ "Welcome to the Home Page" }</h1>
+            <p><Link<Route> to={Route::Dashboard}>{ "Dashboard" }</Link<Route>></p>
+            // <p><Link<Route> to={Route::Stock { id: "AAPL".to_string() }}>{ "View AAPL Stock" }</Link<Route>></p>
             <p><Link<Route> to={Route::About}>{ "Go to About" }</Link<Route>></p>
-            <p><Link<Route> to={Route::Stock { id: "AAPL".to_string() }}>{ "View AAPL Stock" }</Link<Route>></p>
         </div>
     }
 }
@@ -39,15 +41,15 @@ struct StockProps {
     id: String,
 }
 
-#[function_component(Stock)]
-fn stock(props: &StockProps) -> Html {
-    html! {
-        <div>
-            <h1>{ format!("Stock: {}", props.id) }</h1>
-            <p><Link<Route> to={Route::Home}>{ "Back to Home" }</Link<Route>></p>
-        </div>
-    }
-}
+// #[function_component(Stock)]
+// fn stock(props: &StockProps) -> Html {
+//     html! {
+//         <div>
+//             <h1>{ format!("Stock: {}", props.id) }</h1>
+//             <p><Link<Route> to={Route::Home}>{ "Back to Home" }</Link<Route>></p>
+//         </div>
+//     }
+// }
 
 // About page
 #[function_component(About)]
@@ -73,7 +75,22 @@ fn not_found() -> Html {
 
 #[function_component(Dashboard)]
 pub fn dashboard() -> Html {
-    html! {}
+    // let news_articles: Vec<NewsArticle> = vec![];
+    // let scanner_stocks: Vec<Stock> = vec![];
+
+    html! {
+        <div>
+            <h1>{ "Dashboard" }</h1>
+
+            <div class="min-h-screen bg-gray-100 flex items-center justify-center">
+                <h1 class="text-4xl font-bold font-italic text-blue-600">{"Hello, Tailwind + Yew!"}</h1>
+            </div>
+
+            <StockCard stock_name="AAPL" stock_price=150.23 change_percent=1.23 />
+            <DashboardComponent news_articles={vec![]} scanner_stocks={vec![]} />
+            <p><Link<Route> to={Route::Home}>{ "Go Home" }</Link<Route>></p>
+        </div>
+    }
 }
 
 // Main app component
@@ -92,8 +109,7 @@ fn switch(routes: Route) -> Html {
         Route::Home => html! { <Home /> },
 
         // Example of breaking out a route to a page
-        Route::Stock { id } => html! { <Switch <StockRoute> render={stock_switch}/> },
-
+        // Route::Stock { id } => html! {},
         Route::About => html! { <About /> },
         Route::NotFound => html! { <NotFound /> },
         Route::Dashboard => html! { <Dashboard /> },

@@ -1,0 +1,25 @@
+{
+  "name": "stock-dashboard",
+  "version": "1.0.0",
+  "description": "Stock dashboard app",
+  "main": "index.js",
+  "scripts": {
+    "build:css": "tailwindcss -i src/styles.css -o target/styles.css --minify",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lonestar137/stock-dashboard.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Lonestar137/stock-dashboard/issues"
+  },
+  "homepage": "https://github.com/Lonestar137/stock-dashboard#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  }
+}
