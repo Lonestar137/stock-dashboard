@@ -3,6 +3,7 @@ mod pages;
 use crate::components::stock_card::StockCard;
 use crate::pages::dashboard::DashboardComponent;
 
+use components::navbar::NavbarComponent;
 use pages::dashboard::{DashboardProps, NewsArticle, Stock};
 use yew::prelude::*;
 use yew_router::prelude::*;
@@ -27,10 +28,12 @@ enum Route {
 fn home() -> Html {
     html! {
         <div>
+            <NavbarComponent />
             <h1>{ "Welcome to the Home Page" }</h1>
-            <p><Link<Route> to={Route::Dashboard}>{ "Dashboard" }</Link<Route>></p>
-            // <p><Link<Route> to={Route::Stock { id: "AAPL".to_string() }}>{ "View AAPL Stock" }</Link<Route>></p>
-            <p><Link<Route> to={Route::About}>{ "Go to About" }</Link<Route>></p>
+
+            // <p><Link<Route> to={Route::Dashboard}>{ "Dashboard" }</Link<Route>></p>
+            // // <p><Link<Route> to={Route::Stock { id: "AAPL".to_string() }}>{ "View AAPL Stock" }</Link<Route>></p>
+            // <p><Link<Route> to={Route::About}>{ "Go to About" }</Link<Route>></p>
         </div>
     }
 }
@@ -78,17 +81,21 @@ pub fn dashboard() -> Html {
     // let news_articles: Vec<NewsArticle> = vec![];
     // let scanner_stocks: Vec<Stock> = vec![];
 
+    let create_card = |_i| {
+        html! {
+            <StockCard stock_name="AAPL" stock_price=150.23 change_percent=1.23 />
+        }
+    };
     html! {
         <div>
-            <h1>{ "Dashboard" }</h1>
+            <NavbarComponent />
+            <div class="flex flex-wrap items-center justify-center">
+                { for (0..30).map(create_card) }
+                <StockCard stock_name="MSFT" stock_price=1100.23 change_percent=3.23 />
+                <StockCard stock_name="AMZN" stock_price=3400.23 change_percent={-4.01} />
 
-            <div class="min-h-screen bg-gray-100 flex items-center justify-center">
-                <h1 class="text-4xl font-bold font-italic text-blue-600">{"Hello, Tailwind + Yew!"}</h1>
+            // <DashboardComponent news_articles={vec![]} scanner_stocks={vec![]} />
             </div>
-
-            <StockCard stock_name="AAPL" stock_price=150.23 change_percent=1.23 />
-            <DashboardComponent news_articles={vec![]} scanner_stocks={vec![]} />
-            <p><Link<Route> to={Route::Home}>{ "Go Home" }</Link<Route>></p>
         </div>
     }
 }

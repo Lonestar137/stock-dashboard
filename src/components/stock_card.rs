@@ -29,9 +29,9 @@ impl Component for StockCard {
         };
 
         html! {
-            <div class="bingo-board">
-                <div class="board">
-                    <div class="cell" style="background-color: black">
+            <div >
+                <div>
+                    <div class="bg-white-100 shadow size-24">
                         <div>
                             <h2>{ &self.props.stock_name }</h2>
                             <p>{ format!("${:.2}", self.props.stock_price) }</p>
